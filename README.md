@@ -31,9 +31,9 @@ The [master](https://github.com/PTCE-Public/popcorn-desktop/tree/master/) branch
 
 ### Building
 
-1. `npm install`
-1. `npm run build:YOUR_OS` For example: `npm run build:osx64` (osx32, osx64, win32, win64, linux32 or linux64)
-1. The executables should be in the newly created build/ directory
+1. npm install
+2. ./node_modules/.bin/gulp build or if you have gulp globally installed: gulp build
+3. The executables should be in the newly created build/ directory
 
 <a name="community"></a>
 ## Community
