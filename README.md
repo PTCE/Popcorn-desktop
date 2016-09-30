@@ -32,8 +32,8 @@ The [master](https://github.com/PTCE-Public/popcorn-desktop/tree/master/) branch
 ### Building
 
 1. npm install
-2. ./node_modules/.bin/gulp build or if you have gulp globally installed: gulp build
-3. The executables should be in the newly created build/ directory
+1. './node_modules/.bin/gulp build or if you have gulp globally installed: gulp build'
+1. The executables should be in the newly created build/ directory
 
 <a name="community"></a>
 ## Community
