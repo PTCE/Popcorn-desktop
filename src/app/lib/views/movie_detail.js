@@ -1,5 +1,9 @@
 (function (App) {
     'use strict';
+    // Torrent Health
+    var torrentHealth = require('webtorrent-health'),
+    cancelTorrentHealth = function () {},
+    torrentHealthRestarted = null;
 
     App.View.MovieDetail = Backbone.Marionette.ItemView.extend({
         template: '#movie-detail-tpl',
@@ -21,10 +25,9 @@
             'click .watched-toggle': 'toggleWatched',
             'click .movie-imdb-link': 'openIMDb',
             'mousedown .magnet-link': 'openMagnet',
-            'click .sub-dropdown': 'toggleDropdown',
-            'click .sub-flag-icon': 'closeDropdown',
             'click .playerchoicemenu li a': 'selectPlayer',
-            'click .rating-container': 'switchRating'
+            'click .rating-container': 'switchRating',
+            'click .health-icon': 'resetHealth'
         },
 
         initialize: function () {
@@ -48,11 +51,12 @@
 
             App.vent.on('shortcuts:movies', _this.initKeyboardShortcuts);
 
-            this.model.on('change:quality', this.renderHealth, this);
+            this.model.on('change:quality', this.resetHealth(), this);
         },
 
         onShow: function () {
             win.info('Show movie detail (' + this.model.get('imdb_id') + ')');
+            var self = this;
             this.handleAnime();
 
             var torrents = this.model.get('torrents');
@@ -76,7 +80,7 @@
                 $('#watch-trailer').hide();
             }
 
-            this.renderHealth();
+            this.getTorrentHealth();
 
             $('.star-container,.movie-imdb-link,.q720,input,.magnet-link').tooltip({
                 html: true
@@ -106,7 +110,7 @@
                 coverCache = null;
             };
             coverCache.onerror = function () {
-                $('.mcover-image').attr('src', this.model.get('image')).addClass('fadein');
+                $('.mcover-image').attr('src', self.model.get('image')).addClass('fadein');
                 coverCache = null;
             };
 
@@ -150,7 +154,8 @@
         },
 
         handleAnime: function () {
-            if (this.model.get('imdb_id').indexOf('mal') === -1) {
+            var id = this.model.get('imdb_id');
+            if (id && id.indexOf('mal') === -1) {
                 return;
             }
 
@@ -181,15 +186,9 @@
         },
 
         switchRating: function () {
-            if ($('.number-container').hasClass('hidden')) {
-                $('.number-container').removeClass('hidden');
-                $('.star-container').addClass('hidden');
-                AdvSettings.set('ratingStars', false);
-            } else {
-                $('.number-container').addClass('hidden');
-                $('.star-container').removeClass('hidden');
-                AdvSettings.set('ratingStars', true);
-            }
+            $('.number-container').toggleClass('hidden');
+            $('.star-container').toggleClass('hidden');
+            AdvSettings.set('ratingStars', $('.number-container').hasClass('hidden'));
         },
 
         switchSubtitle: function (lang) {
@@ -206,12 +205,18 @@
         },
 
         startStreaming: function () {
+            var movieInfo = {
+                type: 'movie',
+                imdbid: this.model.get('imdb_id')
+            };
+            var torrent = this.model.get('torrents')[this.model.get('quality')];
             var torrentStart = new Backbone.Model({
                 imdb_id: this.model.get('imdb_id'),
-                torrent: this.model.get('torrents')[this.model.get('quality')].magnet,
+                torrent: torrent,
                 backdrop: this.model.get('backdrop'),
                 subtitle: this.model.get('subtitle'),
-                defaultSubtitle: this.subtitle_selected,
+                defaultSubtitle: Settings.subtitle_language, //originally: this.subtitle_selected,
+                extract_subtitle: movieInfo,
                 title: this.model.get('title'),
                 quality: this.model.get('quality'),
                 type: 'movie',
@@ -219,31 +224,7 @@
                 cover: this.model.get('cover')
             });
             App.vent.trigger('stream:start', torrentStart);
-        },
-
-        toggleDropdown: function (e) {
-            if ($('.sub-dropdown').is('.open')) {
-                this.closeDropdown(e);
-                return false;
-            } else {
-                $('.sub-dropdown').addClass('open');
-                $('.sub-dropdown-arrow').addClass('down');
-            }
-            var self = this;
-            $('.flag-container').fadeIn();
-        },
-
-        closeDropdown: function (e) {
-            e.preventDefault();
-            $('.flag-container').fadeOut();
-            $('.sub-dropdown').removeClass('open');
-            $('.sub-dropdown-arrow').removeClass('down');
-
-            var value = $(e.currentTarget).attr('data-lang');
-            if (value) {
-                this.switchSubtitle(value);
-            }
-        },
+         },
 
         playTrailer: function () {
 
@@ -272,6 +253,7 @@
                 this.model.set('quality', '1080p');
                 win.debug('HD Enabled', this.model.get('quality'));
                 AdvSettings.set('movies_default_quality', '1080p');
+                this.resetHealth();
             }
         },
 
@@ -283,23 +265,9 @@
                 this.model.set('quality', '720p');
                 win.debug('HD Disabled', this.model.get('quality'));
                 AdvSettings.set('movies_default_quality', '720p');
+                this.resetHealth();
             }
         },
-
-        renderHealth: function () {
-            var torrent = this.model.get('torrents')[this.model.get('quality')];
-            var health = torrent.health.capitalize();
-            var ratio = torrent.peer > 0 ? torrent.seed / torrent.peer : +torrent.seed;
-
-            $('.health-icon').tooltip({
-                    html: true
-                })
-                .removeClass('Bad Medium Good Excellent')
-                .addClass(health)
-                .attr('data-original-title', i18n.__('Health ' + health) + ' - ' + i18n.__('Ratio:') + ' ' + ratio.toFixed(2) + ' <br> ' + i18n.__('Seeds:') + ' ' + torrent.seed + ' - ' + i18n.__('Peers:') + ' ' + torrent.peer)
-                .tooltip('fixTitle');
-        },
-
 
         toggleFavourite: function (e) {
             if (e.type) {
@@ -308,59 +276,13 @@
             }
             var that = this;
             if (this.model.get('bookmarked') === true) {
-                Database.deleteBookmark(this.model.get('imdb_id'))
-                    .then(function () {
-                        win.info('Bookmark deleted (' + that.model.get('imdb_id') + ')');
-                        App.userBookmarks.splice(App.userBookmarks.indexOf(that.model.get('imdb_id')), 1);
-                        that.ui.bookmarkIcon.removeClass('selected').text(i18n.__('Add to bookmarks'));
-                    })
-                    .then(function () {
-                        return Database.deleteMovie(that.model.get('imdb_id'));
-                    })
-                    .then(function () {
-                        that.model.set('bookmarked', false);
-                        var bookmark = $('.bookmark-item .' + that.model.get('imdb_id'));
-                        if (bookmark.length > 0) {
-                            bookmark.parents('.bookmark-item').remove();
-                        }
-                        if (App.currentview === 'Favorites') {
-                            App.vent.trigger('favorites:render');
-                        }
-                    });
+                that.ui.bookmarkIcon.removeClass('selected').text(i18n.__('Add to bookmarks'));
+                that.model.set('bookmarked', false);
             } else {
-
-                // we need to have this movie cached
-                // for bookmarking
-                var movie = {
-                    imdb_id: this.model.get('imdb_id'),
-                    image: this.model.get('image'),
-                    cover: this.model.get('cover'),
-                    torrents: this.model.get('torrents'),
-                    title: this.model.get('title'),
-                    synopsis: this.model.get('synopsis'),
-                    runtime: this.model.get('runtime'),
-                    year: this.model.get('year'),
-                    genre: this.model.get('genre'),
-                    health: this.model.get('health'),
-                    subtitle: this.model.get('subtitle'),
-                    backdrop: this.model.get('backdrop'),
-                    rating: this.model.get('rating'),
-                    trailer: this.model.get('trailer'),
-                    provider: this.model.get('provider'),
-                    watched: this.model.get('watched'),
-                };
-
-                Database.addMovie(movie)
-                    .then(function () {
-                        return Database.addBookmark(that.model.get('imdb_id'), 'movie');
-                    })
-                    .then(function () {
-                        win.info('Bookmark added (' + that.model.get('imdb_id') + ')');
-                        that.ui.bookmarkIcon.addClass('selected').text(i18n.__('Remove from bookmarks'));
-                        App.userBookmarks.push(that.model.get('imdb_id'));
-                        that.model.set('bookmarked', true);
-                    });
+                that.ui.bookmarkIcon.addClass('selected').text(i18n.__('Remove from bookmarks'));
+                that.model.set('bookmarked', true);
             }
+            $('li[data-imdb-id="' + this.model.get('imdb_id') + '"] .actions-favorites').click();
         },
 
         toggleWatched: function (e) {
@@ -382,7 +304,7 @@
         },
 
         openIMDb: function () {
-            gui.Shell.openExternal('http://www.imdb.com/title/' + this.model.get('imdb_id'));
+            nw.Shell.openExternal('http://www.imdb.com/title/' + this.model.get('imdb_id'));
         },
 
         openMagnet: function (e) {
@@ -390,17 +312,17 @@
                 torrent = this.model.get('torrents')[this.model.get('quality')],
                 magnetLink;
 
-            if (provider === 'MovieAPI') { // Movies
+            if (torrent.magnet) { // Movies
                 magnetLink = torrent.magnet;
             } else { // Anime
                 magnetLink = torrent.url;
             }
             if (e.button === 2) { //if right click on magnet link
-                var clipboard = gui.Clipboard.get();
+                var clipboard = nw.Clipboard.get();
                 clipboard.set(magnetLink, 'text'); //copy link to clipboard
                 $('.notification_alert').text(i18n.__('The magnet link was copied to the clipboard')).fadeIn('fast').delay(2500).fadeOut('fast');
             } else {
-                gui.Shell.openExternal(magnetLink);
+                nw.Shell.openExternal(magnetLink);
             }
         },
 
@@ -416,6 +338,64 @@
                 e.preventDefault();
                 e.stopPropagation();
             }
+        },
+
+        getTorrentHealth: function (e) {
+            var torrent = this.model.get('torrents')[this.model.get('quality')];
+
+            cancelTorrentHealth();
+
+            // Use fancy coding to cancel
+            // pending torrent-tracker-health's
+            var cancelled = false;
+            cancelTorrentHealth = function () {
+                cancelled = true;
+            };
+            if (torrent) {
+            torrentHealth(torrent.url, {
+                    timeout: 2000,
+                    blacklist: Settings.trackers.blacklisted,
+                    trackers: Settings.trackers.forced
+                }, function (err, res) {
+                  if (err) {
+                    win.debug(err);
+                  }
+                  if (cancelled) {
+                        return;
+                    }
+                    if (res.seeds === 0 && torrentHealthRestarted < 5) {
+                        torrentHealthRestarted++;
+                        $('.health-icon').click();
+                    } else {
+                        torrentHealthRestarted = 0;
+                        var h = Common.calcHealth({
+                            seed: res.seeds,
+                            peer: res.peers
+                        });
+                        var health = Common.healthMap[h].capitalize();
+                        var ratio = res.peers > 0 ? res.seeds / res.peers : +res.seeds;
+
+                        $('.health-icon').tooltip({
+                                html: true
+                            })
+                            .removeClass('Bad Medium Good Excellent')
+                            .addClass(health)
+                            .attr('data-original-title', i18n.__('Health ' + health) + ' - ' + i18n.__('Ratio:') + ' ' + ratio.toFixed(2) + ' <br> ' + i18n.__('Seeds:') + ' ' + res.seeds + ' - ' + i18n.__('Peers:') + ' ' + res.peers)
+                            .tooltip('fixTitle');
+                    }
+                });
+                }
+
+        },
+
+        resetHealth: function () {
+            $('.health-icon').tooltip({
+                    html: true
+                })
+                .removeClass('Bad Medium Good Excellent')
+                .attr('data-original-title', i18n.__('Health Unknown'))
+                .tooltip('fixTitle');
+            this.getTorrentHealth();
         },
 
         selectPlayer: function (e) {

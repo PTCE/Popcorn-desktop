@@ -1,5 +1,3 @@
-var os = require('os');
-
 (function (App) {
     'use strict';
 
@@ -21,7 +19,7 @@ var os = require('os');
         },
 
         initialize: function () {
-            this.nativeWindow = require('nw.gui').Window.get();
+            this.nativeWindow = nw.Window.get();
         },
 
         templateHelpers: {
@@ -35,7 +33,7 @@ var os = require('os');
 
             events: function () {
                 var date = new Date();
-                var today = ('0' + (date.getMonth() + 1)).slice(-2) + ('0' + (date.getDate())).slice(-2);
+                var today = ('0' + (date.getMonth() + 　1)).slice(-2) + ('0' + (date.getDate())).slice(-2);
                 if (today === '1231' || today === '0101') {
                     return 'newyear';
                 } else if (today >= '1218' || today <= '0103') {
@@ -101,9 +99,7 @@ var os = require('os');
                     'show': 800,
                     'hide': 100
                 }
-				
             });
-
         }
 
     });

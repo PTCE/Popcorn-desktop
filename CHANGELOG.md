@@ -1,22 +1,42 @@
+## 0.3.10 Beta - A New Start - 18 November 2016
+- Switch to Butter Source Code
+- Switch to New YTS API
+
+BigFixes:
+- Fix Anime Tab
+- Fix Chromecast displaying scrollbar
+- Fix Movies and Tv Shows thumbnails not working (Linux)
+- Update External Device packages
+- Dependencies Update
+
+New Features:
+- Update NWJS to 0.18.6 (https://github.com/nwjs/nw.js/blob/nw18/CHANGELOG.md)
+- Switch to Popcorn Time API  (https://github.com/popcorn-official/popcorn-api)
+- Subtitles dropdown for movies has been removed (subtitles are fetched based on default subtitle language in settings)
+- Subtitles are now fetched from OpenSubtitles
+
+Known Bugs:
+ - Select a random Movie but will work with - https://movies-v2.api-fetch.website
+
 ## 0.3.9 Beta - The one with CE - 30 November 2015
 
-Bug Fixes:
+ Bug Fixes:
 
-- Added secondary tvapi, eztv
-- Changed movie api to yts.ag (don't listen to those .is guys)
-- Fixed episode/season mixup (mitjacotic | issue #1)
-- Updated naming
-- Updated icons
-- Various improvements
-- Verified some missing dependencies we lost with .io
-- Updated some ui stuff
-- Changed loading help link on init to wait a bit longer
+ - Added secondary tvapi, eztv
+ - Changed movie api to yts.ag (don't listen to those .is guys)
+ - Fixed episode/season mixup (mitjacotic | issue #1)
+ - Updated naming
+ - Updated icons
+ - Various improvements
+ - Verified some missing dependencies we lost with .io
+ - Updated some ui stuff
+ - Changed loading help link on init to wait a bit longer
 
-new api coming soon
+ new api coming soon
 
 ## 0.3.8 Beta - There's nothing on TV - 09 July 2015
 
-BugFixes: 
+BugFixes:
 
 - Fullscreen consistent while playing
 - Multi-screen support
@@ -46,7 +66,7 @@ BugFixes:
 - Fix most issues with remotes.
 - Fix the Popcorn Time player when watching trailers.
 
-New Features: 
+New Features:
 
 - Node Webkit 12.1 (now known as nw.js)
 - Cancel "Play Next Episode"
@@ -88,7 +108,7 @@ BugFixes:
 - Fix the movie cover resizing code and garbage collect the cache to ensure old metadata isn't used
 - Greatly improves the built-in DLNA detection
 - Fix retina display for Ultra HD screens
-- Properly hide the spinner in cases where an error occurs 
+- Properly hide the spinner in cases where an error occurs
 - Always show the FileSelector if TorrentCol is active. Fixes PT-1575
 - Fix subtitle error handling in the streamer
 - Prevent the app from getting stuck on "Waiting for Subtitles" if subtitle discovery fails
@@ -175,7 +195,7 @@ like best at http://discuss.popcorntime.io/t/list-of-popcorn-time-remote-control
 - Themes: we give you 3 new themes to check out, and soon you'll be able to
   submit your own.
 - HTTP Api: to control Popcorn Time from another application
-- New settings: 
+- New settings:
 	- Always on Top option
 	- Start page option
 	- Rating on covers
@@ -275,7 +295,7 @@ release notes:
 
 ## 0.2.5 Beta - 08 march 2014
 
-- New languages 
+- New languages
 - Localized Windows Installer
 - Update Node-Webkit 0.9.2
 - Infinite scroll

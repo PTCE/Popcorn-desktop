@@ -202,7 +202,6 @@ a img {
   text-align: center;
   text-decoration: none;
   background-color: rgba(9,13,18,0.75);
-  -webkit-border-radius: 4px;
   border-radius: 4px;
 }
 .nav {
@@ -280,6 +279,11 @@ ul.nav-hor > li {
 }
 #player,
 .player {
+  width: 100%;
+  height: 100%;
+}
+#video_player {
+  position: fixed;
   width: 100%;
   height: 100%;
 }
@@ -401,7 +405,6 @@ ul.nav-hor > li {
   top: 32px;
   position: absolute;
   right: 45px;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .player .details-info-player span {
@@ -510,7 +513,6 @@ ul.nav-hor > li {
   margin-top: 3px;
   margin-left: 15px;
   padding: 12px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   background-color: #1f375f;
   text-align: center;
@@ -527,6 +529,96 @@ ul.nav-hor > li {
   text-decoration: none;
 }
 .player .playing_next .pn_btns .auto-next-btn:active {
+  -webkit-box-shadow: inset 0 1px 4px rgba(0,0,0,0.6);
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.6);
+  background: #2468cc;
+}
+.player .verify-metadata {
+  color: #fff;
+  z-index: 23;
+  bottom: 10vh !important;
+  width: 450px;
+  height: 140px;
+  padding: 10px;
+  font-size: 20px;
+  left: 3vw !important;
+  display: none;
+  background-color: rgba(0,0,0,0.54) !important;
+  overflow: hidden;
+}
+.player .verify-metadata .vm_poster {
+  width: 90px;
+  height: 120px;
+  float: left;
+}
+.player .verify-metadata .vm_poster .verifmeta_poster {
+  width: 80px;
+}
+.player .verify-metadata .vm_epinfo {
+  width: 235px;
+  height: 80px;
+  float: left;
+  text-align: left;
+}
+.player .verify-metadata .vm_epinfo .verifmeta_show {
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.player .verify-metadata .vm_epinfo .verifmeta_episode {
+  font-size: 11px;
+  line-height: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.player .verify-metadata .vm_epinfo .verifmeta_number {
+  font-size: 17px;
+  margin-top: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.player .verify-metadata .vm_box {
+  width: 105px;
+  height: 80px;
+  float: left;
+}
+.player .verify-metadata .vm_box .verifmeta_boxtext {
+  font-size: 11px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.player .verify-metadata .vm_btns {
+  width: 340px;
+  height: 40px;
+  float: left;
+}
+.player .verify-metadata .vm_btns .vm-btn {
+  position: relative;
+  float: left;
+  margin-top: 3px;
+  margin-left: 15px;
+  padding: 12px;
+  border-radius: 3px;
+  background-color: #1f375f;
+  text-align: center;
+  color: #e3e5e7;
+  font-family: 'Open Sans Semibold', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.5s;
+  transition: background-color 0.5s;
+}
+.player .verify-metadata .vm_btns .vm-btn:hover {
+  background-color: #225694;
+  color: #e3e5e7;
+  text-decoration: none;
+}
+.player .verify-metadata .vm_btns .vm-btn:active {
   -webkit-box-shadow: inset 0 1px 4px rgba(0,0,0,0.6);
   box-shadow: inset 0 1px 4px rgba(0,0,0,0.6);
   background: #2468cc;
@@ -583,7 +675,6 @@ ul.nav-hor > li {
   font-family: "Open Sans Semibold";
   -webkit-font-smoothing: antialiased;
   padding: 10px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   top: 65px;
   left: 5px;
@@ -777,7 +868,6 @@ ul.nav-hor > li {
   height: 5px;
   width: 54px;
   margin-right: 0px;
-  -webkit-border-radius: 3px/2px;
   border-radius: 3px/2px;
 }
 .vjs-popcorn-skin .vjs-volume-menu-button .vjs-menu-content {
@@ -789,9 +879,7 @@ ul.nav-hor > li {
   left: 0;
   height: 5px;
   background-color: #2d75df;
-  -webkit-border-radius: 3px/2px;
   border-radius: 3px/2px;
-  -webkit-border-radius: 3px/2px;
   border-radius: 3px/2px;
   -webkit-background-clip: padding;
   background-clip: padding;
@@ -811,9 +899,7 @@ ul.nav-hor > li {
   top: 17px;
   width: auto;
   height: 6px;
-  -webkit-border-radius: 3px/2px;
   border-radius: 3px/2px;
-  -webkit-border-radius: 3px/2px;
   border-radius: 3px/2px;
   -webkit-background-clip: padding;
   background-clip: padding-box;
@@ -823,9 +909,7 @@ ul.nav-hor > li {
   right: 230px;
 }
 .vjs-popcorn-skin:hover .vjs-progress-control {
-  -webkit-border-radius: 3px/2px;
   border-radius: 3px/2px;
-  -webkit-border-radius: 3px/2px;
   border-radius: 3px/2px;
   -webkit-background-clip: padding;
   background-clip: padding;
@@ -836,9 +920,7 @@ ul.nav-hor > li {
 }
 .vjs-popcorn-skin .vjs-progress-holder {
   height: 100%;
-  -webkit-border-radius: 3px/2px;
   border-radius: 3px/2px;
-  -webkit-border-radius: 3px/2px;
   border-radius: 3px/2px;
   -webkit-background-clip: padding;
   background-clip: padding;
@@ -853,9 +935,7 @@ ul.nav-hor > li {
   transition: all 0.5s ease;
 }
 .vjs-popcorn-skin .vjs-load-progress {
-  -webkit-border-radius: 3px/2px;
   border-radius: 3px/2px;
-  -webkit-border-radius: 3px/2px;
   border-radius: 3px/2px;
   -webkit-background-clip: padding;
   background-clip: padding-box;
@@ -946,7 +1026,6 @@ ul.nav-hor > li {
   background-color: #07141e;
   background-color: rgba(7,20,30,0.7);
   border: 0.1em solid #3b4249;
-  -webkit-border-radius: 0.8em;
   border-radius: 0.8em;
   -webkit-box-shadow: 0px 0px 1em rgba(255,255,255,0.25);
   box-shadow: 0px 0px 1em rgba(255,255,255,0.25);
@@ -1011,12 +1090,10 @@ ul.nav-hor > li {
 }
 .vjs-popcorn-skin .vjs-menu-button .vjs-menu .vjs-menu-content::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .vjs-popcorn-skin .vjs-menu-button .vjs-menu .vjs-menu-content::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .vjs-popcorn-skin .vjs-menu-button .vjs-menu .vjs-menu-content::-webkit-scrollbar-thumb:hover {
@@ -1189,9 +1266,7 @@ ul.nav-hor > li {
   padding: 0;
   left: 0;
   top: 0;
-  -webkit-border-radius: 3px/2px;
   border-radius: 3px/2px;
-  -webkit-border-radius: 3px/2px;
   border-radius: 3px/2px;
   -webkit-background-clip: padding;
   background-clip: padding;
@@ -1426,9 +1501,7 @@ body.vjs-full-window {
   height: 5px;
 }
 #vjs-tip-inner {
-  -webkit-border-radius: 3px;
   border-radius: 3px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   padding: 5px 8px 4px;
   background-color: #000;
@@ -1549,7 +1622,6 @@ body,
   position: fixed;
   pointer-events: none;
   background-color: rgba(0,0,0,0.8);
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   padding: 10px;
   top: 78px;
@@ -1580,14 +1652,12 @@ body,
   margin-bottom: 10px;
   margin-top: 3%;
   background-color: #bababa;
-  -webkit-border-radius: 13px;
   border-radius: 13px;
 }
 .init-progressbar > div {
   width: 0%;
   background-color: #2468cc;
   height: 5px;
-  -webkit-border-radius: 13px;
   border-radius: 13px;
   left: 0px;
   -webkit-transition: background-color 0.5s;
@@ -1595,7 +1665,7 @@ body,
 }
 .icon-begin {
   display: block;
-  margin: 0px auto;
+  margin: -7px auto;
   height: calc(58%);
   max-height: 256px;
 }
@@ -1679,7 +1749,6 @@ body,
   opacity: 0.9;
   border-top: 5px solid rgba(0,0,0,0);
   border-left: 5px solid rgba(0,0,0,0);
-  -webkit-border-radius: 50px;
   border-radius: 50px;
   -webkit-box-shadow: 0 0 35px #2187e7;
   box-shadow: 0 0 35px #2187e7;
@@ -1695,7 +1764,6 @@ body,
   opacity: 0.9;
   border-top: 5px solid rgba(0,0,0,0);
   border-left: 5px solid rgba(0,0,0,0);
-  -webkit-border-radius: 50px;
   border-radius: 50px;
   -webkit-box-shadow: 0 0 15px #2187e7;
   box-shadow: 0 0 15px #2187e7;
@@ -1782,12 +1850,10 @@ body,
 }
 #disclaimer-container .disclaimer .disclaimer-state .disclaimer-content .disclaimer-text::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 #disclaimer-container .disclaimer .disclaimer-state .disclaimer-content .disclaimer-text::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 #disclaimer-container .disclaimer .disclaimer-state .disclaimer-content .disclaimer-text::-webkit-scrollbar-thumb:hover {
@@ -1821,7 +1887,6 @@ body,
   padding: 6px 12px;
   font-size: 16px;
   line-height: 1.428571;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   -webkit-user-select: none;
   color: #fff;
@@ -1852,7 +1917,6 @@ body,
   padding: 6px 12px;
   font-size: 16px;
   line-height: 1.428571;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   -webkit-user-select: none;
   color: #fff;
@@ -1927,7 +1991,6 @@ body,
   -webkit-background-size: 77px 12px;
   background-size: 77px 12px;
   background-image: url("../images/icons/topbar_sprite.png");
-  -webkit-border-radius: 30px;
   border-radius: 30px;
   border: 0;
   color: transparent;
@@ -1964,7 +2027,6 @@ body,
   z-index: 10;
   width: 30px;
   height: 28px;
-  -webkit-border-radius: 0;
   border-radius: 0;
   display: block;
 }
@@ -1993,7 +2055,6 @@ body,
   float: left;
   margin: 0 2px 0 0;
   background: #000;
-  -webkit-border-radius: 0px;
   -webkit-border-radius: 0px;
   border-radius: 0px;
   border: 0;
@@ -2069,7 +2130,7 @@ body,
   height: 28px;
   position: absolute;
   top: -6px;
-  left: calc(50% + 64px);
+  left: calc(50% + 52px);
   display: none;
 }
 .events.img-newyear {
@@ -2184,12 +2245,10 @@ body,
 }
 .filter-bar .filter .dropdown-menu::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .filter-bar .filter .dropdown-menu::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .filter-bar .filter .dropdown-menu::-webkit-scrollbar-thumb:hover {
@@ -2285,7 +2344,6 @@ body,
   margin: 8px 3px 0;
   padding: 1px 2px 3px;
   padding-left: 25px;
-  -webkit-border-radius: 10em;
   border-radius: 10em;
   -webkit-appearance: textfield;
   -webkit-box-sizing: content-box;
@@ -2321,12 +2379,10 @@ body,
 }
 .list::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .list::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .list::-webkit-scrollbar-thumb:hover {
@@ -2377,12 +2433,10 @@ body,
 }
 .list .items_show::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .list .items_show::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .list .items_show::-webkit-scrollbar-thumb:hover {
@@ -2441,12 +2495,10 @@ body,
 }
 .list .items_movie::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .list .items_movie::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .list .items_movie::-webkit-scrollbar-thumb:hover {
@@ -2544,7 +2596,6 @@ body,
   background-size: 134px 196px;
   width: 134px;
   height: 196px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   -webkit-box-shadow: 0px 0px 10px;
   box-shadow: 0px 0px 10px;
@@ -2563,7 +2614,6 @@ body,
   width: 100%;
   height: 100%;
   border: 2px solid rgba(23,24,27,0.6);
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   -webkit-transition: border-color 0.25s ease;
   transition: border-color 0.25s ease;
@@ -2608,7 +2658,6 @@ body,
 .item .cover .cover-overlay .rating {
   background: -webkit-linear-gradient(top, rgba(206,206,206,0) 0%, rgba(22,22,22,0.69) 69%, rgba(22,22,22,0.95) 100%);
   background: linear-gradient(to bottom, rgba(206,206,206,0) 0%, rgba(22,22,22,0.69) 69%, rgba(22,22,22,0.95) 100%);
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   bottom: 0;
   display: none;
@@ -2692,7 +2741,6 @@ body,
   background-position: center center;
   width: 134px;
   height: 196px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   -webkit-box-shadow: 0px 0px 10px;
   box-shadow: 0px 0px 10px;
@@ -2729,7 +2777,6 @@ body,
   -webkit-box-shadow: 0px 0px 6px #000;
   padding-bottom: 10px;
   padding-top: 10px;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
   font-family: 'Open Sans Semibold', sans-serif;
   -webkit-transition: background-color 200ms linear;
@@ -2785,6 +2832,7 @@ body,
   opacity: 0;
   background-position-x: 50%;
   background-position-y: -33px;
+  -webkit-filter: blur(15px) brightness(0.7);
   background-repeat: no-repeat;
   -webkit-background-size: cover;
   background-size: cover;
@@ -2807,7 +2855,6 @@ body,
   max-height: 75vh;
   position: relative;
   margin-right: 1vw;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   opacity: 0;
   -webkit-backface-visibility: hidden;
@@ -2861,7 +2908,6 @@ body,
   width: 4px;
   float: left;
   height: 4px;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
   background-color: #dbdbdd;
 }
@@ -2985,12 +3031,10 @@ body,
 }
 .movie-detail .content-box .meta-container .overview::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .movie-detail .content-box .meta-container .overview::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .movie-detail .content-box .meta-container .overview::-webkit-scrollbar-thumb:hover {
@@ -3172,7 +3216,6 @@ body,
 }
 .movie-detail .content-box .bottom-container .sub-dropdown.open {
   background-color: rgba(36,104,204,0.6);
-  -webkit-border-radius: 5px 5px 0 0;
   border-radius: 5px 5px 0 0;
 }
 .movie-detail .content-box .bottom-container .sub-dropdown .sub-dropdown-arrow {
@@ -3226,7 +3269,6 @@ body,
 }
 .movie-detail .content-box .bottom-container .flag.toggle {
   top: -6px;
-  -webkit-border-radius: 0;
   border-radius: 0;
   background-color: transparent;
 }
@@ -3356,7 +3398,6 @@ body,
   float: left;
   height: 35px;
   margin-right: 15px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   -webkit-background-clip: padding;
   background-clip: padding-box;
@@ -3423,7 +3464,6 @@ body,
 }
 .movie-detail .content-box .bottom-container .movie-quality-container .switch {
   background: transparent;
-  -webkit-border-radius: 32px;
   border-radius: 32px;
   display: block;
   height: 12px;
@@ -3487,7 +3527,6 @@ body,
   -webkit-transition: left 0.2s ease;
   transition: left 0.2s ease;
   background: #2468cc;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   height: 10px;
   left: 0px;
@@ -3502,7 +3541,6 @@ body,
   width: 210px;
   top: 0;
   margin-top: 340px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   -webkit-background-clip: padding;
   background-clip: padding-box;
@@ -3547,315 +3585,212 @@ body,
 #movie-error .online-search {
   margin-left: calc(50% + 20px);
 }
-.shows-container-contain {
-  background-color: #17181b;
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  padding-top: 40px;
-}
-.tv-poster {
+.show-detail-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
   position: fixed;
   width: 100%;
-  height: 100%;
-  top: 0;
-  margin-top: 65px;
-  z-index: 3;
-  overflow: hidden;
+  padding-top: 67px;
   background: #17181b;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  flex-direction: column;
 }
-.tv-poster .tv-cover {
-  position: relative;
+.show-detail-container .show-header {
+  width: 100vw;
+/*height: 25vh TODO: responsive header (especially poster)*/
+  min-height: 215px;
+}
+.show-detail-container .show-header .sh-cover .shc-img {
+  position: absolute;
+  min-height: 215px;
+  width: 100vw;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  -webkit-filter: blur(60px) brightness(0.7);
+  background-color: #17181b;
+  opacity: 0;
+}
+.show-detail-container .show-header .sh-cover .shc-img.fadein {
+  -webkit-transition: opacity 0.3s ease-in;
+  transition: opacity 0.3s ease-in;
+  opacity: 1;
+}
+.show-detail-container .show-header .sh-poster {
   float: left;
+  width: 198px;
+  height: 100%;
+}
+.show-detail-container .show-header .sh-poster .shp-img {
+  position: relative;
   margin-left: 32px;
   margin-top: 10px;
   width: 134px;
   height: 197px;
   -webkit-box-shadow: 0px 0px 10px;
   box-shadow: 0px 0px 10px;
-  z-index: 3;
-  -webkit-background-size: 134px 197px;
-  background-size: 134px 197px;
+  -webkit-background-size: 134px;
+  background-size: 134px;
+  background-position: center;
   background-repeat: no-repeat;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   opacity: 0;
   background-color: #17181b;
 }
-.tv-poster .tv-cover.fadein {
+.show-detail-container .show-header .sh-poster .shp-img.fadein {
   -webkit-transition: opacity 0.3s ease-in;
   transition: opacity 0.3s ease-in;
   opacity: 1;
 }
-.tv-poster .tv-poster-background {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-  background-repeat: no-repeat;
-  background-position-x: 50%;
-  background-position-y: -33px;
-  opacity: 0;
-  -webkit-background-size: cover;
-  background-size: cover;
-}
-.tv-poster .tv-poster-background.fadein {
-  -webkit-transition: opacity 0.3s ease-in;
-  transition: opacity 0.3s ease-in;
-  opacity: 1;
-}
-.tv-poster .tv-poster-background .tv-poster-overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0.65;
-  background-color: #000;
-  z-index: 2;
-}
-.tv-meta-data {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-}
-.tv-meta-data .tv-dot {
-  position: relative;
-  z-index: 3;
-  margin: 39.5px 15px 0 15px;
+.show-detail-container .show-header .sh-metadata {
   float: left;
-  width: 3px;
-  height: 3px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -webkit-background-clip: padding;
-  background-clip: padding-box;
-  background-color: #dbdbdd;
-  cursor: default;
-}
-.tv-meta-data .tv-title {
-  top: 21px;
-  left: 198px;
   position: relative;
-  z-index: 3;
+  height: 194px;
+  width: calc(100% - 198px);
+  padding-top: 10px;
+  padding-right: 45px;
+}
+.show-detail-container .show-header .sh-metadata .shm-title {
   color: #fff;
-  width: 452px;
   font-family: 'Open Sans';
   -webkit-font-smoothing: antialiased;
-  font-size: 22px;
+  font-size: 28px;
+  margin-bottom: 8px;
+  margin-top: 5px;
 }
-.tv-meta-data .tv-year {
-  margin-top: 35px;
-  position: relative;
-  margin-left: 198px;
+.show-detail-container .show-header .sh-metadata .shm-infos div {
   float: left;
-  color: #fff;
-  width: auto;
-  height: auto;
-  font-family: 'Open Sans Bold';
-  -webkit-font-smoothing: antialiased;
   font-size: 11px;
-  cursor: default;
-  z-index: 3;
-}
-.tv-meta-data .tv-runtime {
-  margin-top: 35px;
-  z-index: 3;
-  position: relative;
-  float: left;
-  color: #fff;
   font-family: 'Open Sans Bold';
-  -webkit-font-smoothing: antialiased;
-  font-size: 11px;
-  cursor: default;
-}
-.tv-meta-data .tv-status {
-  margin-top: 35px;
-  z-index: 3;
-  position: relative;
-  float: left;
   color: #fff;
-  font-family: 'Open Sans Bold';
   -webkit-font-smoothing: antialiased;
-  font-size: 11px;
-  cursor: default;
 }
-.tv-meta-data .tv-genre {
-  margin-top: 35px;
-  position: relative;
-  z-index: 3;
-  float: left;
-  color: #fff;
-  font-family: 'Open Sans Bold';
-  -webkit-font-smoothing: antialiased;
-  font-size: 11px;
-  cursor: default;
-}
-.tv-meta-data .show-imdb-link {
-  z-index: 3;
-  margin-top: 33px;
-  width: 27px;
-  float: left;
-  height: 16px;
-  position: relative;
+.show-detail-container .show-header .sh-metadata .shm-infos div.shmi-imdb {
   cursor: pointer;
   background: url("../images/icons/imdb.png") no-repeat;
+  width: 27px;
+  height: 16px;
+  position: relative;
+  top: -2px;
 }
-.tv-meta-data .rating-container-tv .hidden {
+.show-detail-container .show-header .sh-metadata .shm-infos div.shmi-rating {
+  cursor: pointer;
+}
+.show-detail-container .show-header .sh-metadata .shm-infos div.shmi-rating .hidden {
   display: none;
 }
-.tv-meta-data .rating-container-tv .number-container-tv {
-  width: auto;
-  float: left;
+.show-detail-container .show-header .sh-metadata .shm-infos div.shmi-rating .number-container-tv {
   position: relative;
   font-size: 12px;
   font-family: 'Open Sans Bold';
   color: #fff;
-  cursor: pointer;
-  margin-top: 30px;
-  top: 5px;
-  z-index: 3;
 }
-.tv-meta-data .rating-container-tv .number-container-tv em {
+.show-detail-container .show-header .sh-metadata .shm-infos div.shmi-rating .number-container-tv em {
   font-size: 0.8em;
 }
-.tv-meta-data .rating-container-tv .star-container-tv {
-  z-index: 3;
+.show-detail-container .show-header .sh-metadata .shm-infos div.shmi-rating .star-container-tv {
   position: relative;
-  top: 1px;
   opacity: 1;
-  float: left;
-  margin-top: 30px;
-  cursor: pointer;
 }
-.tv-meta-data .rating-container-tv .star-container-tv .rating-star {
+.show-detail-container .show-header .sh-metadata .shm-infos div.shmi-rating .star-container-tv .rating-star {
   color: #ffc900;
   font-size: 11px;
   padding-right: 3px;
 }
-.tv-meta-data .rating-container-tv .star-container-tv .rating-star-half {
+.show-detail-container .show-header .sh-metadata .shm-infos div.shmi-rating .star-container-tv .rating-star-half {
   color: #ffc900;
   font-size: 11px;
   margin-left: -4px;
   padding-right: 3px;
 }
-.tv-meta-data .rating-container-tv .star-container-tv .rating-star-half-empty {
+.show-detail-container .show-header .sh-metadata .shm-infos div.shmi-rating .star-container-tv .rating-star-half-empty {
   color: #a3a5a7;
   font-size: 11px;
   margin-left: -3px;
 }
-.tv-meta-data .rating-container-tv .star-container-tv .rating-star-empty {
+.show-detail-container .show-header .sh-metadata .shm-infos div.shmi-rating .star-container-tv .rating-star-empty {
   color: #a3a5a7;
   font-size: 11px;
   padding-right: 3px;
 }
-.tv-meta-data .rating-container-tv .star-container-tv .rating-star-half-container {
+.show-detail-container .show-header .sh-metadata .shm-infos div.shmi-rating .star-container-tv .rating-star-half-container {
   width: 1em;
   height: 1em;
   line-height: 1em;
   margin-top: 2px;
   margin-right: -3px;
 }
-.tv-meta-data .tv-overview {
-  margin-top: 60px;
-  margin-left: 198px;
-  z-index: 3;
-  position: relative;
+.show-detail-container .show-header .sh-metadata .shm-infos span.dot {
+  margin: 4.5px 15px 0 15px;
+  float: left;
+  width: 3px;
+  height: 3px;
+  border-radius: 2px;
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+  background-color: #dbdbdd;
+  cursor: default;
+}
+.show-detail-container .show-header .sh-metadata .shm-synopsis {
   color: #fff;
+  float: left;
+  width: 100%;
   text-align: justify;
   font-family: 'Open Sans Semibold';
   -webkit-font-smoothing: antialiased;
   font-size: 12px;
   line-height: 22px;
-  max-width: 78%;
-  max-height: 88px;
-  padding-right: 15px;
+  max-height: 107px;
+  padding-right: 8px;
+  margin-top: 8px;
   overflow: hidden;
   overflow-x: hidden;
   overflow-y: overlay;
   -webkit-overflow-scrolling: touch;
 }
-.tv-meta-data .tv-overview::-webkit-scrollbar {
+.show-detail-container .show-header .sh-metadata .shm-synopsis::-webkit-scrollbar {
   width: 5px;
 }
-.tv-meta-data .tv-overview::-webkit-scrollbar-track {
+.show-detail-container .show-header .sh-metadata .shm-synopsis::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
-.tv-meta-data .tv-overview::-webkit-scrollbar-thumb {
+.show-detail-container .show-header .sh-metadata .shm-synopsis::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
-.tv-meta-data .tv-overview::-webkit-scrollbar-thumb:hover {
+.show-detail-container .show-header .sh-metadata .shm-synopsis::-webkit-scrollbar-thumb:hover {
   background-color: #93989c;
 }
-.tv-meta-data .tv-overview::-webkit-resizer,
-.tv-meta-data .tv-overview::-webkit-scrollbar-corner,
-.tv-meta-data .tv-overview::-webkit-scrollbar-button,
-.tv-meta-data .tv-overview::-webkit-scrollbar-track-piece {
+.show-detail-container .show-header .sh-metadata .shm-synopsis::-webkit-resizer,
+.show-detail-container .show-header .sh-metadata .shm-synopsis::-webkit-scrollbar-corner,
+.show-detail-container .show-header .sh-metadata .shm-synopsis::-webkit-scrollbar-button,
+.show-detail-container .show-header .sh-metadata .shm-synopsis::-webkit-scrollbar-track-piece {
   display: none;
 }
-.tv-meta-data .show-watched-toggle {
+.show-detail-container .show-header .sh-actions {
+  float: left;
+  position: relative;
+  width: calc(100% - 198px);
+  height: 20px;
+}
+.show-detail-container .show-header .sh-actions .sha-bookmark {
+  float: left;
   cursor: pointer;
   padding-left: 24px;
-  right: 45px;
-  text-align: right;
-  z-index: 3;
   color: #fff;
-  height: 18px;
-  top: 194px;
-  position: absolute;
-  font-family: 'Open Sans Semibold';
-  -webkit-font-smoothing: antialiased;
-  font-size: 12px;
-  line-height: 17px;
-  display: none;
-}
-.tv-meta-data .show-watched-toggle:before {
-  content: "\f070";
-  font-family: FontAwesome;
-  position: absolute;
-  font-size: 18px;
-  color: #fff;
-  left: 0;
-  opacity: 1;
-  -webkit-transition: opacity 0.5s;
-  transition: opacity 0.5s;
-}
-.tv-meta-data .show-watched-toggle:after {
-  content: "\f00c";
-  font-family: FontAwesome;
-  position: absolute;
-  font-size: 20px;
-  color: #299000;
-  left: 0;
-  opacity: 0;
-  -webkit-transition: opacity 0.5s;
-  transition: opacity 0.5s;
-}
-.tv-meta-data .show-watched-toggle:hover:before,
-.tv-meta-data .show-watched-toggle.selected:before {
-  opacity: 0;
-}
-.tv-meta-data .show-watched-toggle:hover:after,
-.tv-meta-data .show-watched-toggle.selected:after {
-  opacity: 1;
-}
-.tv-meta-data .favourites-toggle {
-  cursor: pointer;
-  padding-left: 24px;
-  margin-left: 198px;
-  z-index: 3;
-  color: #fff;
-  height: 18px;
-  top: 194px;
-  position: absolute;
+  position: relative;
   font-family: 'Open Sans Semibold';
   -webkit-font-smoothing: antialiased;
   font-size: 12px;
   line-height: 17px;
 }
-.tv-meta-data .favourites-toggle:before {
+.show-detail-container .show-header .sh-actions .sha-bookmark:before {
   content: "\f004";
   font-family: FontAwesome;
   position: absolute;
@@ -3869,7 +3804,7 @@ body,
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-.tv-meta-data .favourites-toggle:after {
+.show-detail-container .show-header .sh-actions .sha-bookmark:after {
   content: "\f004";
   font-family: FontAwesome;
   position: absolute;
@@ -3883,17 +3818,17 @@ body,
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-.tv-meta-data .favourites-toggle:hover:before {
+.show-detail-container .show-header .sh-actions .sha-bookmark:hover:before {
   opacity: 0;
 }
-.tv-meta-data .favourites-toggle:hover:after {
+.show-detail-container .show-header .sh-actions .sha-bookmark:hover:after {
   opacity: 1;
 }
-.tv-meta-data .favourites-toggle.selected {
+.show-detail-container .show-header .sh-actions .sha-bookmark.selected {
   height: 18px;
   width: 200px;
 }
-.tv-meta-data .favourites-toggle.selected:before {
+.show-detail-container .show-header .sh-actions .sha-bookmark.selected:before {
   content: "\f004";
   font-family: FontAwesome;
   position: absolute;
@@ -3907,7 +3842,7 @@ body,
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-.tv-meta-data .favourites-toggle.selected:after {
+.show-detail-container .show-header .sh-actions .sha-bookmark.selected:after {
   content: "\f004";
   font-family: FontAwesome;
   position: absolute;
@@ -3921,322 +3856,367 @@ body,
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-.tv-meta-data .favourites-toggle.selected:hover:before {
+.show-detail-container .show-header .sh-actions .sha-bookmark.selected:hover:before {
   opacity: 0;
 }
-.tv-meta-data .favourites-toggle.selected:hover:after {
+.show-detail-container .show-header .sh-actions .sha-bookmark.selected:hover:after {
   opacity: 1;
 }
-.episode-base {
-  margin-top: 240px;
-}
-.episode-base .season-episode-container {
-  padding-top: 50px;
-}
-.tabs-base {
+.show-detail-container .show-header .sh-actions .sha-watched {
+  float: right;
+  cursor: pointer;
+  padding-left: 24px;
+  right: 45px;
+  color: #fff;
   position: absolute;
-  width: 100%;
-  height: 100%;
+  font-family: 'Open Sans Semibold';
+  -webkit-font-smoothing: antialiased;
+  font-size: 12px;
+  line-height: 17px;
+  display: none;
+}
+.show-detail-container .show-header .sh-actions .sha-watched:before {
+  content: "\f070";
+  font-family: FontAwesome;
+  position: absolute;
+  font-size: 18px;
+  color: #fff;
+  left: 0;
+  opacity: 1;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+.show-detail-container .show-header .sh-actions .sha-watched:after {
+  content: "\f00c";
+  font-family: FontAwesome;
+  position: absolute;
+  font-size: 20px;
+  color: #299000;
+  left: 0;
+  opacity: 0;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+.show-detail-container .show-header .sh-actions .sha-watched:hover:before,
+.show-detail-container .show-header .sh-actions .sha-watched.selected:before {
+  opacity: 0;
+}
+.show-detail-container .show-header .sh-actions .sha-watched:hover:after,
+.show-detail-container .show-header .sh-actions .sha-watched.selected:after {
+  opacity: 1;
+}
+.show-detail-container .show-details {
+  width: 100vw;
+  z-index: 1;
   background: #17181b;
-  z-index: 3;
+  height: calc(100vh - 282px);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  padding-left: 20px /* left-pad */;
+/* ugly rule to bypass restrictions */
 }
-.tabs-base ul {
-  list-style: none;
+.show-detail-container .show-details .sd-seasons ul,
+.show-detail-container .show-details .sd-episodes ul {
+  height: calc(100vh - 340px);
+  cursor: pointer;
+  direction: rtl;
+  overflow-x: hidden;
+  overflow-y: overlay;
+  -webkit-overflow-scrolling: touch;
 }
-.tabs-base ul li:nth-child(odd) {
+.show-detail-container .show-details .sd-seasons ul::-webkit-scrollbar,
+.show-detail-container .show-details .sd-episodes ul::-webkit-scrollbar {
+  width: 5px;
+}
+.show-detail-container .show-details .sd-seasons ul::-webkit-scrollbar-track,
+.show-detail-container .show-details .sd-episodes ul::-webkit-scrollbar-track {
+  background-color: #30333c;
+  border-radius: 2px;
+}
+.show-detail-container .show-details .sd-seasons ul::-webkit-scrollbar-thumb,
+.show-detail-container .show-details .sd-episodes ul::-webkit-scrollbar-thumb {
+  background-color: #83888c;
+  border-radius: 2px;
+}
+.show-detail-container .show-details .sd-seasons ul::-webkit-scrollbar-thumb:hover,
+.show-detail-container .show-details .sd-episodes ul::-webkit-scrollbar-thumb:hover {
+  background-color: #93989c;
+}
+.show-detail-container .show-details .sd-seasons ul::-webkit-resizer,
+.show-detail-container .show-details .sd-episodes ul::-webkit-resizer,
+.show-detail-container .show-details .sd-seasons ul::-webkit-scrollbar-corner,
+.show-detail-container .show-details .sd-episodes ul::-webkit-scrollbar-corner,
+.show-detail-container .show-details .sd-seasons ul::-webkit-scrollbar-button,
+.show-detail-container .show-details .sd-episodes ul::-webkit-scrollbar-button,
+.show-detail-container .show-details .sd-seasons ul::-webkit-scrollbar-track-piece,
+.show-detail-container .show-details .sd-episodes ul::-webkit-scrollbar-track-piece {
+  display: none;
+}
+.show-detail-container .show-details .sd-seasons ul li,
+.show-detail-container .show-details .sd-episodes ul li {
+  padding: 0px 15px;
+  margin: 1px 0px 1px 1px;
+  float: left;
+  width: calc(100% - 7px);
+}
+.show-detail-container .show-details .sd-seasons ul li .watched,
+.show-detail-container .show-details .sd-episodes ul li .watched {
+  padding: 9px 0;
+  color: rgba(255,255,255,0.2);
+  -webkit-transition: color 0.5s;
+  transition: color 0.5s;
+}
+.show-detail-container .show-details .sd-seasons ul li .watched:hover,
+.show-detail-container .show-details .sd-episodes ul li .watched:hover {
+  color: rgba(255,255,255,0.4);
+}
+.show-detail-container .show-details .sd-seasons ul li .watched.true,
+.show-detail-container .show-details .sd-episodes ul li .watched.true {
+  color: #fff;
+}
+.show-detail-container .show-details .sd-seasons ul li:nth-child(odd),
+.show-detail-container .show-details .sd-episodes ul li:nth-child(odd) {
   background-color: #1f2025;
 }
-.tabs-base ul li:hover {
+.show-detail-container .show-details .sd-seasons ul li:hover,
+.show-detail-container .show-details .sd-episodes ul li:hover {
   background: #26272d;
 }
-.tabs-base ul li.active {
+.show-detail-container .show-details .sd-seasons ul li.active,
+.show-detail-container .show-details .sd-episodes ul li.active {
   background-color: #1b2d4c;
   position: relative;
 }
-.tabs-base ul li.active .watched {
-  right: 19px;
-}
-.tabs-base ul li.active:after {
+.show-detail-container .show-details .sd-seasons ul li.active:after,
+.show-detail-container .show-details .sd-episodes ul li.active:after {
   content: "";
   position: absolute;
   top: 0px;
   right: -12px;
   width: 0;
   height: 0;
-  border-color: transparent transparent transparent #1b2d4c;
+  border-color: #17181b #17181b #17181b #1b2d4c;
   border-style: solid;
   border-width: 16px 6px 17px 6px;
 }
-.tabs-seasons {
-  cursor: pointer;
-  margin-top: 10px;
-  margin-left: 30px;
-  padding-right: 12px;
-  width: 13%;
-  height: calc(100% - 350px);
-  display: inline-block;
-  position: relative;
-  direction: rtl;
-  overflow-x: hidden;
-  overflow-y: overlay;
-  -webkit-overflow-scrolling: touch;
-}
-.tabs-seasons::-webkit-scrollbar {
-  width: 5px;
-}
-.tabs-seasons::-webkit-scrollbar-track {
-  background-color: #30333c;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-}
-.tabs-seasons::-webkit-scrollbar-thumb {
-  background-color: #83888c;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-}
-.tabs-seasons::-webkit-scrollbar-thumb:hover {
-  background-color: #93989c;
-}
-.tabs-seasons::-webkit-resizer,
-.tabs-seasons::-webkit-scrollbar-corner,
-.tabs-seasons::-webkit-scrollbar-button,
-.tabs-seasons::-webkit-scrollbar-track-piece {
-  display: none;
-}
-.tabs-seasons ul {
-  list-style: none;
-  direction: ltr;
-}
-.tabs-seasons ul a {
+.show-detail-container .show-details .sd-seasons ul a,
+.show-detail-container .show-details .sd-episodes ul a {
   text-decoration: none;
   font-size: 15px;
-  color: #fff;
+  line-height: 34px;
   font-weight: normal;
-  margin: 10px 0px;
+  float: left;
+  -webkit-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  direction: ltr;
 }
-.tabs-seasons ul li {
-  padding: 9px 15px 9px 15px;
-  font-family: sans-serif;
-  font-size: 15px;
-  margin-left: -10px;
+.show-detail-container .show-details .sd-seasons ul a span,
+.show-detail-container .show-details .sd-episodes ul a span {
+  float: left;
+  margin: 0px 15px 0px 5px;
+}
+.show-detail-container .show-details .sd-seasons ul a div,
+.show-detail-container .show-details .sd-episodes ul a div {
+  float: left;
+  white-space: nowrap;
   border-left: 1px solid #17181b;
-  margin: 1px;
-}
-.tabs-seasons ul li.active a {
-  color: #fff;
-}
-.tabs-seasons ul li.active span {
-  right: 11px;
-}
-.tabs-episodes {
-  position: relative;
-  z-index: 2;
-  width: 48%;
-  height: calc(100% - 350px);
-  display: inline-block;
-  direction: rtl;
-  overflow-x: hidden;
-  overflow-y: overlay;
-  -webkit-overflow-scrolling: touch;
-}
-.tabs-episodes::-webkit-scrollbar {
-  width: 5px;
-}
-.tabs-episodes::-webkit-scrollbar-track {
-  background-color: #30333c;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-}
-.tabs-episodes::-webkit-scrollbar-thumb {
-  background-color: #83888c;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-}
-.tabs-episodes::-webkit-scrollbar-thumb:hover {
-  background-color: #93989c;
-}
-.tabs-episodes::-webkit-resizer,
-.tabs-episodes::-webkit-scrollbar-corner,
-.tabs-episodes::-webkit-scrollbar-button,
-.tabs-episodes::-webkit-scrollbar-track-piece {
-  display: none;
-}
-.tabs-episodes .tab-episodes {
-  display: none;
-  direction: ltr;
-  padding-right: 6px;
-}
-.tabs-episodes a {
-  text-decoration: none;
-  color: #fff;
-  font-size: 15px;
-  font-weight: normal;
-  margin: 10px 0px;
-}
-.tabs-episodes .current {
-  display: block;
-}
-.tabs-episodes ul {
-  position: relative;
-  margin: 0;
-  list-style: none;
-  background: #17181b;
-}
-.tabs-episodes ul li {
-  padding: 0;
-  min-width: 360px;
-  margin: 1px;
-  cursor: pointer;
-}
-.tabs-episodes ul li .watched {
-  position: absolute;
-  right: 20px;
-  opacity: 1;
-  padding: 10px 0;
-  color: rgba(255,255,255,0.2);
-  font-size: 1em;
-  -webkit-transition: color 0.5s;
-  transition: color 0.5s;
-}
-.tabs-episodes ul li .watched:hover {
-  color: rgba(255,255,255,0.4);
-}
-.tabs-episodes ul li .watched.true {
-  color: #fff;
-}
-.tabs-episodes ul li .episodeData span {
-  padding: 9px 18px 9px 20px;
-  font-weight: 800;
-}
-.tabs-episodes ul li .episodeData span:first-child {
-  width: 57px;
-  display: inline-block;
-  border-right: 1px solid #17181b;
-  text-align: right;
-}
-.tabs-episodes ul li .episodeData div {
-  color: #8d9296;
-  font-weight: 100;
-  padding-left: 34px;
-  display: inline-block;
-  max-width: 78%;
+  padding-left: 30px;
+  max-width: calc(60vw - 265px);
+  text-align: left;
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
-  padding-bottom: 3px;
-  vertical-align: -5px;
 }
-.tabs-episodes ul li.active div,
-.tabs-episodes ul li.active a {
+.show-detail-container .show-details .sd-seasons .sds-title,
+.show-detail-container .show-details .sd-episodes .sds-title,
+.show-detail-container .show-details .sd-seasons .sde-title,
+.show-detail-container .show-details .sd-episodes .sde-title {
+  font-size: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 15px;
+  margin-top: 2px;
   color: #fff;
 }
-.display-base-title {
-  width: 100%;
+.show-detail-container .show-details .sd-seasons {
+  min-width: 165px;
+  max-width: 165px;
+  -webkit-flex-shrink: 1;
+  flex-shrink: 1;
+  -webkit-box-flex: 1;
+  box-flex: 1;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  padding: 10px;
+}
+.show-detail-container .show-details .sd-seasons .sds-list ul a {
   color: #fff;
-  height: 60px;
-  font-size: 23px;
-  padding: 20px 0;
-  position: fixed;
-  top: 280px;
-  z-index: 3;
-  background: #17181b;
+  font-family: sans-serif;
+  white-space: nowrap;
 }
-.display-base-title .episode-list-seasons {
-  display: inline-block;
-  margin-left: 30px;
-  width: 13%;
+.show-detail-container .show-details .sd-episodes {
+  -webkit-box-flex: 2;
+  box-flex: 2;
+  -webkit-flex-grow: 2;
+  flex-grow: 2;
+  padding: 10px;
 }
-.display-base-title .episode-list-episodes {
-  display: inline-block;
-}
-.episode-info {
-  background-color: #1f2025;
-  float: right;
-  width: 44%;
-  color: #fff;
-  padding: 20px 30px 30px 20px;
-  height: 100%;
+.show-detail-container .show-details .sd-episodes .sde-list ul li a {
+  color: #8d9296;
   font-family: 'Open Sans Semibold';
-  line-height: initial;
-  position: fixed;
-  margin-left: auto;
-  margin-right: auto;
-  right: 0;
-  z-index: 4;
 }
-.episode-info p {
-  font-size: 22px;
-  margin: -22px 0 10px;
+.show-detail-container .show-details .sd-episodes .sde-list ul li.active a {
+  color: #fff;
 }
-.episode-info .episode-info-title {
-  display: inline-block;
-  font-size: 23px;
-  line-height: 1;
-  padding-bottom: 3px;
-  max-width: 100%;
+.show-detail-container .show-details .sd-overview {
+  background: #1f2025;
+  -webkit-box-flex: 1;
+  box-flex: 1;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+  width: 35vw;
+  min-width: 350px;
+  padding: 10px 30px 10px 18px /* right pad */;
+}
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-title {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  font-size: 24px;
+  margin-top: 2px;
+  margin-bottom: 6px;
+  color: #fff;
 }
-.episode-info .episode-info-number {
-  font-weight: 100;
-  font-size: 12px;
-  color: #8d9296;
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-links {
+  position: absolute;
+  right: 42px;
+  margin-top: -6px;
 }
-.episode-info .episode-info-date {
-  font-weight: 100;
-  font-size: 12px;
-  color: #8d9296;
-  margin-bottom: 5px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-links>div {
+  padding: 5px 2px;
+  cursor: pointer;
+  position: relative;
 }
-.episode-info .episode-info-description {
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-links .health-icon {
+  font-size: 14px;
+  color: #737577;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+}
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-links .health-icon.Bad {
+  color: #d53f3f;
+}
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-links .health-icon.Medium {
+  color: #ece523;
+}
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-links .health-icon.Good {
+  color: #a3e147;
+}
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-links .health-icon.Excellent {
+  color: #2ad942;
+}
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-links .magnet-icon {
   font-size: 13px;
-  font-weight: 100;
+  color: #ddd;
+}
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-links .magnet-icon:hover {
+  color: #fff;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-aired {
+  font-size: 12px;
+  line-height: 15px;
+  margin-bottom: 10px;
+  color: #8d9296;
+}
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-aired .sdoi-date {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-synopsis {
+  color: #fff;
+  font-size: 13px;
   line-height: 18px;
   text-align: justify;
-  margin-top: 14px;
-  height: calc(100% - 390px);
-  overflow-y: auto;
+  margin-top: 10px;
   padding: 2px 15px 5px 0;
+  height: calc(100vh - 425px);
   overflow-x: hidden;
   overflow-y: overlay;
   -webkit-overflow-scrolling: touch;
 }
-.episode-info .episode-info-description::-webkit-scrollbar {
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-synopsis::-webkit-scrollbar {
   width: 5px;
 }
-.episode-info .episode-info-description::-webkit-scrollbar-track {
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-synopsis::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
-.episode-info .episode-info-description::-webkit-scrollbar-thumb {
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-synopsis::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
-.episode-info .episode-info-description::-webkit-scrollbar-thumb:hover {
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-synopsis::-webkit-scrollbar-thumb:hover {
   background-color: #93989c;
 }
-.episode-info .episode-info-description::-webkit-resizer,
-.episode-info .episode-info-description::-webkit-scrollbar-corner,
-.episode-info .episode-info-description::-webkit-scrollbar-button,
-.episode-info .episode-info-description::-webkit-scrollbar-track-piece {
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-synopsis::-webkit-resizer,
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-synopsis::-webkit-scrollbar-corner,
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-synopsis::-webkit-scrollbar-button,
+.show-detail-container .show-details .sd-overview .sdo-infos .sdoi-synopsis::-webkit-scrollbar-track-piece {
   display: none;
 }
-.episode-info .movie-btn-watch-episode {
-  right: 30px;
-  bottom: 290px;
-  z-index: 2;
-  position: absolute;
+.show-detail-container .show-details .sd-overview .sdo-watch {
+  height: 60px;
+  padding: 10px 0;
+}
+.show-detail-container .show-details .sd-overview .sdo-watch .sdow-quality {
+  margin-top: 24px;
+  float: left;
+}
+.show-detail-container .show-details .sd-overview .sdo-watch .sdow-quality div {
+  cursor: pointer;
+  float: left;
+  font-family: 'Open Sans Semibold';
+  -webkit-font-smoothing: antialiased;
+  font-size: 11px;
+  color: #fff;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+.show-detail-container .show-details .sd-overview .sdo-watch .sdow-quality .q720 {
+  margin-left: 6px;
+}
+.show-detail-container .show-details .sd-overview .sdo-watch .sdow-quality .q1080 {
+  margin-left: 6px;
+}
+.show-detail-container .show-details .sd-overview .sdo-watch .sdow-quality .disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.show-detail-container .show-details .sd-overview .sdo-watch .sdow-quality .active {
+  cursor: pointer;
+  opacity: 1;
+  color: rgba(43,110,210,0.84);
+  font-family: 'Open Sans Bold';
+}
+.show-detail-container .show-details .sd-overview .sdo-watch .sdow-watchnow {
+  margin-top: 6px;
+  float: right;
   cursor: pointer;
   padding: 0 15px;
   height: 35px;
   font-size: 12px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   -webkit-background-clip: padding;
   background-clip: padding-box;
@@ -4249,109 +4229,17 @@ body,
   line-height: 34px;
   color: #fff;
 }
-.episode-info .movie-btn-watch-episode:hover {
+.show-detail-container .show-details .sd-overview .sdo-watch .sdow-watchnow:hover {
   background-color: #225694;
   text-decoration: none;
 }
-.episode-info .movie-btn-watch-episode:active {
+.show-detail-container .show-details .sd-overview .sdo-watch .sdow-watchnow:active {
   -webkit-box-shadow: inset 0 1px 4px rgba(0,0,0,0.6);
   box-shadow: inset 0 1px 4px rgba(0,0,0,0.6);
   background: #2468cc;
 }
-.episode-info .health-icon {
-  position: relative;
-  font-size: 14px;
-  float: right;
-  margin-right: 15px;
-  margin-top: -16px;
-  color: #737577;
-  cursor: pointer;
-  -webkit-transition: all 0.3s ease-in;
-  transition: all 0.3s ease-in;
-}
-.episode-info .health-icon.Bad {
-  color: #d53f3f;
-}
-.episode-info .health-icon.Medium {
-  color: #ece523;
-}
-.episode-info .health-icon.Good {
-  color: #a3e147;
-}
-.episode-info .health-icon.Excellent {
-  color: #2ad942;
-}
-.episode-info .show-magnet-link {
-  position: relative;
-  font-size: 13px;
-  float: right;
-  margin-right: 39px;
-  margin-top: -15px;
-  color: #ddd;
-  cursor: pointer;
-}
-.episode-info .show-magnet-link:hover {
-  color: #fff;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
-.episode-info .show-quality-container {
-  top: 32px;
-  z-index: 2;
-  float: left;
-  left: -10px;
-  width: 10px;
-  height: 10px;
-  position: relative;
-}
-.episode-info .show-quality-container div {
-  font-family: 'Open Sans Semibold';
-  -webkit-font-smoothing: antialiased;
-  font-size: 11px;
-  color: #fff;
-  position: absolute;
-  z-index: 2;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
-}
-.episode-info .show-quality-container .quality-selector div {
-  cursor: pointer;
-}
-.episode-info .show-quality-container .quality-selector .q720 {
-  margin-left: 32px;
-}
-.episode-info .show-quality-container .quality-selector .q1080 {
-  margin-left: 64px;
-}
-.episode-info .show-quality-container .quality-selector .active {
-  color: rgba(43,110,210,0.84);
-  font-family: 'Open Sans Bold';
-}
-.episode-info .show-quality-container .quality-selector .disabled {
-  opacity: 0.3;
-  cursor: default;
-}
-@media all and (min-width: 1300px) {
-  .episode-info {
-    width: 46%;
-  }
-  .tabs-episodes {
-    width: 38%;
-  }
-}
-@media all and (min-width: 700px) and (max-width: 1300px) {
-  .episode-info {
-    width: 36%;
-  }
-  .tabs-episodes {
-    width: 47%;
-  }
-  .episode-info-title {
-    font-size: 18px;
-  }
-  .episode-info-number {
-    top: 36px;
-  }
+.show-detail-container .show-details .sd-seasons[style*="display: none"] + .sd-episodes ul a div {
+  max-width: calc(60vw - 100px);
 }
 .about-container {
   z-index: 1;
@@ -4538,12 +4426,10 @@ body,
 }
 .about-container .changelog-overlay .changelog-text::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .about-container .changelog-overlay .changelog-text::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .about-container .changelog-overlay .changelog-text::-webkit-scrollbar-thumb:hover {
@@ -4632,12 +4518,10 @@ body,
 }
 .help-container .content .help-outer::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .help-container .content .help-outer::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .help-container .content .help-outer::-webkit-scrollbar-thumb:hover {
@@ -4731,12 +4615,10 @@ body,
 }
 .issue-container .content .issue-outer::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .issue-container .content .issue-outer::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .issue-container .content .issue-outer::-webkit-scrollbar-thumb:hover {
@@ -4843,7 +4725,6 @@ body,
   padding-left: 10px;
   padding-right: 10px;
   margin-right: 20px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   height: 35px;
   background-color: #1f375f;
@@ -4896,12 +4777,10 @@ body,
 }
 .issue-container .content .issue-outer textarea::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .issue-container .content .issue-outer textarea::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .issue-container .content .issue-outer textarea::-webkit-scrollbar-thumb:hover {
@@ -4999,12 +4878,10 @@ body,
 }
 .keyboard-container .keyboard-outer::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .keyboard-container .keyboard-outer::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .keyboard-container .keyboard-outer::-webkit-scrollbar-thumb:hover {
@@ -5071,7 +4948,6 @@ body,
   width: 23px;
   height: 21px;
   background: #eff0f2;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   border-top: 1px solid #f5f5f5;
   -webkit-box-shadow: inset 0 0 25px #e8e8e8, 0 1px 0 #c3c3c3, 0 2px 0 #c9c9c9, 0 2px 3px #333;
@@ -5163,7 +5039,6 @@ body,
   cursor: pointer;
   height: 35px;
   margin-top: 15px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   -webkit-background-clip: padding;
   background-clip: padding-box;
@@ -5255,12 +5130,10 @@ body,
 }
 .file-selector-container .content::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .file-selector-container .content::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .file-selector-container .content::-webkit-scrollbar-thumb:hover {
@@ -5335,14 +5208,14 @@ body,
   -webkit-transition: opacity 0.1s ease-in;
   transition: opacity 0.1s ease-in;
 }
-.torrent-collection-container .content .onlinesearch .engine-selector div#kat-icon {
-  background: url("../images/icons/kickasstorrents.png");
+.torrent-collection-container .content .onlinesearch .engine-selector div#extratorrent-icon {
+  background: url("../images/icons/extratorrent.png");
   -webkit-background-size: contain;
   background-size: contain;
 }
-.torrent-collection-container .content .onlinesearch .engine-selector div#strike-icon {
+.torrent-collection-container .content .onlinesearch .engine-selector div#rarbg-icon {
   -webkit-filter: brightness(1);
-  background: url("../images/icons/getstrike.png");
+  background: url("../images/icons/rarbg.png");
   -webkit-background-size: contain;
   background-size: contain;
 }
@@ -5421,7 +5294,6 @@ body,
   margin: 0 auto;
   width: 250px;
   height: 250px;
-  -webkit-border-radius: 25px;
   border-radius: 25px;
   color: #727272;
   text-align: center;
@@ -5467,13 +5339,11 @@ body,
 .torrent-collection-container .content .torrents-info::-webkit-scrollbar-track,
 .torrent-collection-container .content .onlinesearch-info::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .torrent-collection-container .content .torrents-info::-webkit-scrollbar-thumb,
 .torrent-collection-container .content .onlinesearch-info::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .torrent-collection-container .content .torrents-info::-webkit-scrollbar-thumb:hover,
@@ -5684,12 +5554,10 @@ body,
 }
 .settings-container-contain::-webkit-scrollbar-track {
   background-color: #30333c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .settings-container-contain::-webkit-scrollbar-thumb {
   background-color: #83888c;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 .settings-container-contain::-webkit-scrollbar-thumb:hover {
@@ -5790,11 +5658,10 @@ body,
   left: 40%;
   background-color: #fff;
   -webkit-border-radius: 5px;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
   border: 1px solid #000;
   padding: 30px 10px 0px;
-  z-index: 99999;
+  z-index: 99999 /* 1px higher than the overlay layer */;
 }
 .settings-container-contain .settings-container #qrcode-modal #qrcode-close {
   color: #000;
@@ -5803,7 +5670,6 @@ body,
   top: -11px;
   right: -10px;
   background: #fff;
-  -webkit-border-radius: 51px;
   border-radius: 51px;
   padding: 0;
   width: 21px;
@@ -5873,7 +5739,7 @@ body,
 .settings-container-contain .settings-container #trakt-tv .trakt-options .unauthtext:hover {
   color: #225694;
 }
-.settings-container-contain .settings-container #trakt-tv .trakt-options .loading-spinner {
+.settings-container-contain .settings-container #trakt-tv .trakt-options .trakt-loading-spinner {
   -webkit-animation-duration: 0.75s;
   animation-duration: 0.75s;
   -webkit-animation-iteration-count: infinite;
@@ -5886,7 +5752,6 @@ body,
   height: 15px;
   border: 3px solid #2d75df;
   border-right-color: transparent;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -5930,7 +5795,6 @@ body,
   height: 15px;
   border: 3px solid #2d75df;
   border-right-color: transparent;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -5942,6 +5806,83 @@ body,
   margin-left: 20px;
   margin-top: -2px;
 }
+.settings-container-contain .settings-container #opensubtitles .opensubtitles-options {
+  color: #c3c5c7;
+}
+.settings-container-contain .settings-container #opensubtitles .opensubtitles-options a {
+  display: inline-block;
+}
+.settings-container-contain .settings-container #opensubtitles .opensubtitles-options .unauthtext {
+  margin-left: 5px;
+  color: #2468cc;
+}
+.settings-container-contain .settings-container #opensubtitles .opensubtitles-options .unauthtext:hover {
+  color: #225694;
+}
+.settings-container-contain .settings-container #opensubtitles .opensubtitles-options .loading-spinner {
+  -webkit-animation-duration: 0.75s;
+  animation-duration: 0.75s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: rotate-forever;
+  animation-name: rotate-forever;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  width: 20px;
+  height: 20px;
+  border: 4px solid #2d75df;
+  border-right-color: transparent;
+  border-radius: 50%;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-box;
+  display: inline-flex;
+  margin-left: -27px;
+  margin-top: -9px;
+}
+.settings-container-contain .settings-container #opensubtitles .opensubtitles-options .invalid-cross {
+  width: 20px;
+  height: 20px;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-box;
+  display: inline-flex;
+  margin-left: -27px;
+}
+.settings-container-contain .settings-container #opensubtitles .opensubtitles-options .invalid-cross:before {
+  content: "\2573";
+  font-family: Arial;
+  font-size: 12px;
+  font-weight: bolder;
+  text-shadow: 0 0 10px #ee3030;
+  color: #ee3030;
+}
+.settings-container-contain .settings-container #opensubtitles .opensubtitles-options .valid-tick {
+  width: 20px;
+  height: 20px;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-box;
+  display: inline-flex;
+  margin-left: -27px;
+  margin-top: -9px;
+}
+.settings-container-contain .settings-container #opensubtitles .opensubtitles-options .valid-tick:before {
+  content: "\2714";
+  font-family: Arial;
+  font-size: 17px;
+  font-weight: bold;
+  text-shadow: 0 0 10px #4eee30;
+  color: #4eee30;
+  position: relative;
+  top: 2px;
+}
+.settings-container-contain .settings-container #opensubtitles .opensubtitles-options #authOpensubtitles {
+  margin-top: -8px;
+}
 .settings-container-contain .settings-container #connection #overallRatio {
   pointer-events: none;
   -webkit-user-select: none;
@@ -5950,13 +5891,13 @@ body,
   padding-left: 4px;
   padding-right: 8px;
 }
-.settings-container-contain .settings-container #connection [class^="reset-"] {
+.settings-container-contain .settings-container #connection .reset-tvAPI {
   font-size: 13px;
   color: #8a8b8e;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
-.settings-container-contain .settings-container #connection [class^="reset-"]:hover {
+.settings-container-contain .settings-container #connection .reset-tvAPI:hover {
   cursor: pointer;
   color: #2468cc;
   -webkit-transition: all 0.5s;
@@ -5986,9 +5927,6 @@ body,
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
-.settings-container-contain .settings-container #vpn .vpn-buttons {
-  margin-bottom: 10px;
-}
 .settings-container-contain .settings-container .btns {
   padding-top: 10px;
   padding-right: 2%;
@@ -6006,7 +5944,6 @@ body,
   padding-left: 10px;
   padding-right: 10px;
   margin-right: 20px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   height: 35px;
   background-color: #1f375f;
@@ -6217,7 +6154,6 @@ body,
   top: 0;
   width: 14px;
   height: 14px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   -webkit-background-clip: padding;
   background-clip: padding-box;
@@ -6310,6 +6246,7 @@ body,
   background-position-y: 0px;
   -webkit-background-size: cover;
   background-size: cover;
+  -webkit-filter: blur(15px) brightness(0.7);
 }
 .loading .loading-background-overlay {
   width: 100%;
@@ -6351,13 +6288,11 @@ body,
   margin-bottom: 10px;
   margin-top: 10px;
   background-color: #bababa;
-  -webkit-border-radius: 13px;
   border-radius: 13px;
 }
 .loading .state .loading-progressbar > div {
   background-color: #2468cc;
   height: 5px;
-  -webkit-border-radius: 13px;
   border-radius: 13px;
   left: 0px;
 }
@@ -6366,13 +6301,11 @@ body,
   margin-bottom: 10px;
   margin-top: 10px;
   background-color: #bababa;
-  -webkit-border-radius: 13px;
   border-radius: 13px;
 }
 .loading .state .playing-progressbar > div {
   background-color: #2468cc;
   height: 10px;
-  -webkit-border-radius: 13px;
   border-radius: 13px;
   left: 0px;
 }
@@ -6398,7 +6331,6 @@ body,
   left: 0;
   right: 0;
   -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
   -moz-background-clip: padding;
@@ -6436,7 +6368,6 @@ body,
   margin: auto;
   padding: 10px;
   padding-bottom: 20px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   left: 0;
   right: 0;
@@ -6488,7 +6419,6 @@ body,
   display: block;
   position: absolute;
   top: 70px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   height: auto;
   min-width: 300px;

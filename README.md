@@ -1,8 +1,8 @@
-# [Popcorn Time CE](https://github.com/PTCE-Public/popcorn-desktop/)
+# [Popcorn Time CE](https://github.com/PTCE/Popcorn-desktop/)
 
 Allow anyone to easily watch their favorite movies, shows, and anime.
 
-![Popcorn Time](src/app/images/icon.png)
+![Popcorn Time CE](src/app/images/icon.png)
 
 Visit the project's website at <https://popcorntimece.ch/>.
 
@@ -18,22 +18,18 @@ Want to report a bug, request a feature, contribute or translate Popcorn Time? W
 
 If you're comfortable getting up and running from a `git clone`, this method is for you.
 
-If you clone the GitLab repository, you will need to build a number of assets using grunt.
+If you clone the GitHub repository, you will need to build a number of assets using grunt.
 
 The [master](https://github.com/PTCE-Public/popcorn-desktop/tree/master/) branch which contains the latest release.
 
 #### Quickstart:
 
-### Running
+    npm install -g gulp-cli
+    npm install
+    gulp build
+    gulp run
 
-1. `npm install`
-1. `npm start`
-
-### Building
-
-1. npm install
-1. './node_modules/.bin/gulp build or if you have gulp globally installed: gulp build'
-1. The executables should be in the newly created build/ directory
+Full instructions & troubleshooting tips can be found in the [Contributing Guide](CONTRIBUTING.md#contributing-to-popcorn-time)
 
 <a name="community"></a>
 ## Community
@@ -63,11 +59,11 @@ Constructed with the following guidelines:
 ***
 
 If you distribute a copy or make a fork of the project, you have to credit this project as source.
-	
+
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
- 
+
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
+
 You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/ .
 
 ***
@@ -76,6 +72,6 @@ You should have received a copy of the GNU General Public License along with thi
 
 ***
 
-If you want to contact us : [popcorntimece@hmamail.com](mailto:popcorntimece@hmamail.com) or [use the form](https://popcorntimece.ch/contact/) on our website.
- 
+If you want to contact us : [hello@popcorntimece.ch](mailto:hello@popcorntimece.ch) or [use the form](https://popcorntimece.ch/contact/) on our website.
+
 Copyright (c) 2015 Popcorn Time CE - Released under the [GPL v3 license](LICENSE.txt).

@@ -1,179 +1,138 @@
 (function (App) {
     'use strict';
 
-    var Q = require('q');
-    var request = require('request');
-    var inherits = require('util').inherits;
-
-    function MovieAPI() {
-        if (!(this instanceof MovieAPI)) {
-            return new MovieAPI();
-        }
-
-        App.Providers.Generic.call(this);
-    }
-    inherits(MovieAPI, App.Providers.Generic);
-
-    MovieAPI.prototype.extractIds = function (items) {
-        return _.pluck(items.results, 'imdb_id');
+    var MovieApi = function () {
+        MovieApi.super_.call(this);
     };
 
-    var format = function (data) {
-        var results = _.chain(data.movies)
-            .filter(function (movie) {
-                // Filter any 3D only movies
-                return _.any(movie.torrents, function (torrent) {
-                    return torrent.quality !== '3D';
-                });
-            }).map(function (movie) {
-                return {
-                    type: 'movie',
-                    imdb_id: movie.imdb_code,
-                    title: movie.title_english,
-                    year: movie.year,
-                    genre: movie.genres,
-                    rating: movie.rating,
-                    runtime: movie.runtime,
-                    image: movie.medium_cover_image,
-                    cover: movie.medium_cover_image,
-                    backdrop: movie.background_image_original,
-                    synopsis: movie.description_full,
-                    trailer: 'https://www.youtube.com/watch?v=' + movie.yt_trailer_code || false,
-                    certification: movie.mpa_rating,
-                    torrents: _.reduce(movie.torrents, function (torrents, torrent) {
-                        if (torrent.quality !== '3D') {
-                            torrents[torrent.quality] = {
-                                url: torrent.url,
-                                magnet: 'magnet:?xt=urn:btih:' + torrent.hash + '&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://p4p.arenabg.ch:1337&tr=udp://tracker.internetwarriors.net:1337',
-                                size: torrent.size_bytes,
-                                filesize: torrent.size,
-                                seed: torrent.seeds,
-                                peer: torrent.peers
-                            };
-                        }
-                        return torrents;
-                    }, {})
-                };
-            }).value();
+    inherits(MovieApi, App.Providers.Generic);
+
+    function formatMovie(movie) {
+        return {
+            type: 'movie',
+            imdb_id: movie.imdb_id,
+            title: movie.title,
+            year: movie.year,
+            genre: movie.genres,
+            rating: parseInt(movie.rating.percentage, 10) / 10,
+            runtime: movie.runtime,
+            images: movie.images,
+            cover: movie.images.poster,
+            backdrop: movie.images.fanart,
+            synopsis: movie.synopsis,
+            trailer: movie.trailer !== null ? movie.trailer : false,
+            certification: movie.certification,
+            torrents: movie.torrents['en'] !== null ? movie.torrents['en'] : movie.torrents[Object.keys(movie.torrents)[0]],
+            langs: movie.torrents
+        };
+    }
+
+    function formatForPopcorn(movies) {
+        var results = [];
+
+        movies.forEach(function (movie) {
+            if (movie.torrents) {
+                results.push(formatMovie(movie));
+            }
+        });
 
         return {
             results: Common.sanitize(results),
-            hasMore: data.movie_count > data.page_number * data.limit
+            hasMore: true
         };
     };
 
-    MovieAPI.prototype.fetch = function (filters) {
-        var params = {
-            sort_by: 'seeds',
-            limit: 50,
-            with_rt_ratings: true
+    function get(index, url, that) {
+        var deferred = Q.defer();
+
+        var options = {
+            url: url,
+            json: true
         };
 
-        if (filters.page) {
-            params.page = filters.page;
+        var req = processCloudFlareHack(options, Settings.animeAPI[index].url);
+        console.info('Request to MovieAPI', req.url);
+        request(req, function (err, res, data) {
+            if (err || res.statusCode >= 400) {
+                console.warn('MovieAPI endpoint \'%s\' failed.', Settings.movieAPI[index].url);
+                if (index + 1 >= Settings.movieAPI.length) {
+                    return deferred.reject(err || 'Status Code is above 400');
+                } else {
+                    return get(index + 1, url, that);
+                }
+            } else if (!data || data.error) {
+                err = data ? data.status_message : 'No data returned';
+                console.error('API error:', err);
+                return deferred.reject(err);
+            } else {
+                return deferred.resolve(data);
+            }
+        });
+
+        return deferred.promise;
+    };
+
+    var processCloudFlareHack = function (options, url) {
+        var req = options;
+        var match = url.match(/^cloudflare\+(.*):\/\/(.*)/);
+        if (match) {
+            req = _.extend(req, {
+                uri: match[1] + '://cloudflare.com/',
+                headers: {
+                    'Host': match[2],
+                    'User-Agent': 'Mozilla/5.0 (Linux) AppleWebkit/534.30 (KHTML, like Gecko) PT/3.8.0'
+                }
+            });
         }
+        return req;
+    };
+
+    MovieApi.prototype.extractIds = function (items) {
+        return _.pluck(items.results, 'imdb_id');
+    };
+
+    MovieApi.prototype.fetch = function (filters) {
+        var that = this;
+
+        var params = {};
+        params.sort = 'seeds';
+        params.limit = '50';
 
         if (filters.keywords) {
-            params.query_term = filters.keywords;
+            params.keywords = filters.keywords.replace(/\s/g, '% ');
         }
 
-        if (filters.genre && filters.genre !== 'All') {
+        if (filters.genre) {
             params.genre = filters.genre;
         }
 
-        if (filters.order === 1) {
-            params.order_by = 'asc';
+        if (filters.order) {
+            params.order = filters.order;
         }
 
         if (filters.sorter && filters.sorter !== 'popularity') {
-            switch (filters.sorter) {
-                case 'last added':
-                    params.sort_by = 'date_added';
-                    break;
-                case 'trending':
-                    params.sort_by = 'trending_score';
-                    break;
-                default:
-                    params.sort_by = filters.sorter;
-            }
+            params.sort = filters.sorter;
         }
 
-        if (Settings.movies_quality !== 'all') {
-            params.quality = Settings.movies_quality;
-        }
-
-        if (Settings.translateSynopsis) {
-            params.lang = Settings.language;
-        }
-
-        var defer = Q.defer();
-
-        function get(index) {
-            var options = {
-                url: Settings.movieAPI[index].url + 'api/v2/list_movies_pct.json',
-                qs: params,
-                json: true,
-                timeout: 10000
-            };
-            var req = jQuery.extend(true, {}, Settings.movieAPI[index], options);
-            request(req, function (err, res, data) {
-                if (err || res.statusCode >= 400 || (data && !data.data)) {
-                    win.warn('Movie API endpoint \'%s\' failed.', Settings.movieAPI[index].url);
-                    if (index + 1 >= Settings.movieAPI.length) {
-                        return defer.reject(err || 'Status Code is above 400');
-                    } else {
-                        get(index + 1);
-                    }
-                    return;
-                } else if (!data || data.status === 'error') {
-                    err = data ? data.status_message : 'No data returned';
-                    return defer.reject(err);
-                } else {
-                    return defer.resolve(format(data.data));
-                }
+        var index = 0;
+        var url = Settings.movieAPI[index].url + 'movies/' + filters.page + '?' + querystring.stringify(params).replace(/%25%20/g, '%20');
+        return get(index, url, that)
+            .then(function (data) {
+                return formatForPopcorn(data);
             });
-        }
-        get(0);
-
-        return defer.promise;
     };
 
-    MovieAPI.prototype.random = function () {
-        var defer = Q.defer();
-
-        function get(index) {
-            var options = {
-                url: Settings.movieAPI[index].url + 'api/v2/get_random_movie.json?' + Math.round((new Date()).valueOf() / 1000),
-                json: true,
-                timeout: 10000
-            };
-            var req = jQuery.extend(true, {}, Settings.movieAPI[index], options);
-            request(req, function (err, res, data) {
-                if (err || res.statusCode >= 400 || (data && !data.data)) {
-                    win.warn('Movie API endpoint \'%s\' failed.', Settings.movieAPI[index].url);
-                    if (index + 1 >= Settings.movieAPI.length) {
-                        return defer.reject(err || 'Status Code is above 400');
-                    } else {
-                        get(index + 1);
-                    }
-                    return;
-                } else if (!data || data.status === 'error') {
-                    err = data ? data.status_message : 'No data returned';
-                    return defer.reject(err);
-                } else {
-                    return defer.resolve(Common.sanitize(data.data));
-                }
-            });
-        }
-        get(0);
-
-        return defer.promise;
-    };
-
-    MovieAPI.prototype.detail = function (torrent_id, old_data) {
+    MovieApi.prototype.detail = function (torrent_id, old_data, debug) {
         return Q(old_data);
     };
 
-    App.Providers.MovieAPI = MovieAPI;
+    MovieApi.prototype.random = function () {
+        var that = this;
+        var index = 0;
+        var url = Settings.movieAPI[index].url + 'random/movie';
+        return get(index, url, that).then(formatMovie);
+    };
+
+    App.Providers.MovieApi = MovieApi;
 
 })(window.App);

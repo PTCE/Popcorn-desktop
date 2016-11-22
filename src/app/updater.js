@@ -15,16 +15,7 @@
 
     var CHANNELS = ['stable', 'beta', 'nightly'],
         FILENAME = 'package.nw.new',
-        VERIFY_PUBKEY =
-            '-----BEGIN PUBLIC KEY-----\n' +
-            'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4j8OstNmAIA2ZhIY6B4Q\n' +
-            'WsEOC5zFxMGgfkcXmzD4cs1UsLd2awRxe4V+lWb57ZuImC4m2XY4omlHRBx/0nfw\n' +
-            'Ct2EoRNROWIO0O5An/TOH0FbwZXD/Hivlw6rKilJwdRPemqF7Zns6poyvnkI8Az0\n' +
-            '6guYJnozKICm9cZvygCEvpfKgbli6yiTT6OczQ/tK8choCQyKWeblEBEgOrmqcFl\n' +
-            'jbnSpQNbw42lsDFzZGW2YCNCRQ1lbXPT0BKxXS3b7GuhRt2JR0zcI/3U4dTG4/Js\n' +
-            'JGSuegqFnYmI8+E8b4a8oNWLZBuPfHOvvf3tTMFMHSJZd5CF6buFyZectCeblKPk\n' +
-            'BQIDAQAB\n' +
-            '-----END PUBLIC KEY-----\n';
+        VERIFY_PUBKEY = Settings.updateKey;
 
 
     function forcedBind(func, thisVar) {
@@ -41,7 +32,7 @@
         var self = this;
 
         this.options = _.defaults(options || {}, {
-            endpoint: AdvSettings.get('updateEndpoint').url + 'update.json' + '?version=' + App.settings.version + '&nwversion=' + process.versions['node-webkit'],
+            endpoint: AdvSettings.get('updateEndpoint').url + 'update3.json' + '?version=' + App.settings.version + '&nwversion=' + process.versions['node-webkit'],
             channel: 'beta'
         });
 
@@ -120,21 +111,21 @@
     Updater.prototype.verify = function (source) {
         var defer = Q.defer();
         var self = this;
-        win.debug('Verifying update authenticity with SHA-512 signature...');
+        win.debug('Verifying update authenticity with SDA-SHA1 signature...');
 
         var hash = crypto.createHash('SHA1'),
-            verify = crypto.createVerify('sha512'); //Old encryption was DSA-SHA1
+            verify = crypto.createVerify('DSA-SHA1');
 
         var readStream = fs.createReadStream(source);
         readStream.pipe(hash);
-        //readStream.pipe(verify); //Currently uses something different
+        readStream.pipe(verify);
         readStream.on('end', function () {
             hash.end();
-            var _hash = hash.read().toString('hex');
-            verify.update(_hash);
-            if (self.updateData.checksum !== _hash
-                || verify.verify(VERIFY_PUBKEY, self.updateData.signature, 'base64') === false) {
-                defer.reject('Invalid hash or signature');
+            if (
+                self.updateData.checksum !== hash.read().toString('hex') ||
+                verify.verify(VERIFY_PUBKEY, self.updateData.signature, 'base64') === false
+            ) {
+                defer.reject('invalid hash or signature');
             } else {
                 win.debug('Update was correctly signed and is safe to install!');
                 defer.resolve(source);
@@ -145,6 +136,7 @@
 
     function installWindows(downloadPath, updateData) {
         var defer = Q.defer();
+
         var pack = new AdmZip(downloadPath);
 
         if (updateData.extended) {
@@ -169,8 +161,8 @@
                     };
 
                     App.vent.trigger('notification:show', new App.Model.Notification({
-                        title: 'Update ' + (updateData.version || 'Hotfix') + ' Installed',
-                        body: (updateData.description || 'Auto update'),
+                        title: 'Update ' + this.updateData.version + ' Installed',
+                        body: this.updateData.description,
                         showRestart: false,
                         type: 'info',
                         buttons: [{
@@ -190,8 +182,7 @@
         } else {
 
             // Extended: false || undefined
-            //var installDir = path.dirname(downloadPath);
-            var installDir = path.dirname(process.execPath); //Fix bug when you install PT under a different path (don't create a map Popcorn Time when creating update)
+            var installDir = path.dirname(downloadPath);
 
             win.debug('Extracting update files...');
             pack.extractAllToAsync(installDir, true, function (err) {
@@ -393,6 +384,34 @@
             }]
         }));
     };
+
+
+    Updater.prototype.update = function () {
+        var outputFile = path.join(path.dirname(this.outputDir), FILENAME);
+
+        if (this.updateData) {
+            // If we have already checked for updates...
+            return this.download(this.updateData.updateUrl, outputFile)
+                .then(forcedBind(this.verify, this))
+                .then(forcedBind(this.install, this))
+                .then(forcedBind(this.displayNotification, this));
+        } else {
+            // Otherwise, check for updates then install if needed!
+            var self = this;
+            return this.check().then(function (updateAvailable) {
+                if (updateAvailable) {
+                    return self.download(self.updateData.updateUrl, outputFile)
+                        .then(forcedBind(self.verify, self))
+                        .then(forcedBind(self.install, self))
+                        .then(forcedBind(self.displayNotification, self));
+                } else {
+                    return false;
+                }
+            });
+        }
+    };
+
+    App.Updater = Updater;
 
     Updater.prototype.update = function () {
         var outputFile = path.join(path.dirname(this.outputDir), FILENAME);

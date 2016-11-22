@@ -4,8 +4,8 @@
 
         <div class="onlinesearch">
             <div class="engine-selector">
-                <div id="strike-icon" data-id="Strike" class="engine-icon"></div>
-                <div id="kat-icon" data-id="KAT" class="engine-icon"></div>
+                <div id="rarbg-icon" data-id="RARBG" class="engine-icon"></div>
+                <div id="extratorrent-icon" data-id="ExtraTorrent" class="engine-icon"></div>
             </div>
             <div class="dropdown online-categories">
                     <%
@@ -34,10 +34,9 @@
 
         <div class="torrents-info">
             <ul class="file-list">
-                <% _.each(fs.readdirSync(require('nw.gui').App.dataPath + '/TorrentCollection/'), function(file, index) { %>
+                <% _.each(fs.readdirSync(data_path + '/TorrentCollection/'), function(file, index) { %>
                     <li class="file-item" data-index="<%=file.index%>" data-file="<%=index%>">
                         <a><%=file%></a>
-
                    <% if (file.indexOf('.torrent') !== -1) { %>
                         <div class="item-icon torrent-icon"></div>
                    <% } else { %>

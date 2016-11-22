@@ -3,9 +3,7 @@
     var rpc = require('json-rpc2');
     var server;
     var lang;
-    var nativeWindow = require('nw.gui').Window.get();
     var httpServer;
-    var Q = require('q');
 
     var initServer = function () {
         return Q.Promise(function (resolve, reject) {
@@ -166,21 +164,21 @@
 
                     var type = result.get('type');
                     switch (type) {
-                        case 'movie':
-                            popcornCallback(callback, false, result.attributes);
-                            break;
-                        case 'show':
-                        case 'anime':
-                            result.set('health', false);
-                            var provider = App.Providers.get(result.get('provider'));
-                            var data = provider.detail(result.get('imdb_id'), result.attributes)
-                                .then(function (resolve, reject) {
-                                    data.provider = provider.name;
-                                    result = new App.Model[type.charAt(0).toUpperCase() + type.slice(1)](data);
-                                    popcornCallback(callback, false, result.attributes);
-                                });
+                    case 'movie':
+                        popcornCallback(callback, false, result.attributes);
+                        break;
+                    case 'show':
+                    case 'anime':
+                        result.set('health', false);
+                        var provider = App.Providers.get(result.get('provider'));
+                        var data = provider.detail(result.get('imdb_id'), result.attributes)
+                            .then(function (resolve, reject) {
+                                data.provider = provider.name;
+                                result = new App.Model[type.charAt(0).toUpperCase() + type.slice(1)](data);
+                                popcornCallback(callback, false, result.attributes);
+                            });
 
-                            break;
+                        break;
                     }
                 } else {
                     var model = movieView.model.attributes;
@@ -289,7 +287,6 @@
             });
 
             server.expose('getfullscreen', function (args, opt, callback) {
-                nativeWindow = require('nw.gui').Window.get();
                 popcornCallback(callback, false, {
                     'fullscreen': nativeWindow.isFullscreen
                 });

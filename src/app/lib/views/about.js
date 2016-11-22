@@ -12,7 +12,7 @@
         events: {
             'click .close-icon': 'closeAbout',
             'click #changelog': 'showChangelog',
-            //'click .title-issue': 'reportIssue'
+            'click .title-issue': 'reportIssue'
         },
 
         onShow: function () {
@@ -48,7 +48,7 @@
                     $('.changelog-text').html(contents.replace(/\n/g, '<br />'));
                     $('.changelog-overlay').show();
                 } else {
-                    gui.Shell.openExternal('https://github.com/PopcornTimeCE/popcorntimece/blob/master/CHANGELOG.md');
+                    nw.Shell.openExternal(Settings.changelogUrl);
                 }
             });
         },

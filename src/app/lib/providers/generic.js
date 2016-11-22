@@ -36,7 +36,6 @@
     };
 
     function getProvider(name) {
-			
         if (!name) {
             /* XXX(xaiki): this is for debug purposes, will it bite us later ? */
             win.error('dumping provider cache');

@@ -19,22 +19,3 @@
 <div class="drop-indicator left"></div>
 <div class="drop-indicator bottom"></div>
 <div id="player"></div>
-
-
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="true" aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-body">
-            <center>
-                <br />
-                <img src="http://i.imgur.com/HV8Sos8.png" class="img-responsive" object-fit:"contain" >
-                <br />
-                <code style="font-size:18px; padding-left:5px;padding-right:5px; color:#7B7B7B; background-color:#DBDBDB;">3HowmzTcd3W8b5biGPzV584V3zhsThjt3M</code>
-                <br />
-            </center>
-        </div>
-        <div class="modal-footer">
-        <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
-        </div>
-    </div>
-</div>
