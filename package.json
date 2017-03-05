@@ -68,16 +68,16 @@
     "send": "0.14.x",
     "tar": "2.2.1",
     "temp": "0.x.x",
-    "webtorrent-health": "git+https://github.com/vankasteelj/webtorrent-health",
     "trakt.tv": "2.x.x",
-    "trakt.tv-ondeck": "0.x.x",
-    "trakt.tv-matcher": "1.x.x",
     "trakt.tv-images": "1.x.x",
+    "trakt.tv-matcher": "1.x.x",
+    "trakt.tv-ondeck": "0.x.x",
     "underscore": "1.x.x",
     "upnp-mediarenderer-client": "^1.2.1",
     "urijs": "1.18.1",
-    "xmlbuilder": "^2.6.2",
-    "webtorrent": "^0.94.4"
+    "webtorrent": "^0.94.4",
+    "webtorrent-health": "^1.1.0",
+    "xmlbuilder": "^2.6.2"
   },
   "devDependencies": {
     "bower": "^1.7.9",
